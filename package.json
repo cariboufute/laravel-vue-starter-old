@@ -7,12 +7,20 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "test": "jest"
     },
     "devDependencies": {
         "axios": "^0.25",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.1.14",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.49.9",
+        "sass-loader": "^12.6.0",
+        "vue": "^3.2.31",
+        "vue-loader": "^17.0.0",
+        "vue-router": "^4.0.13",
+        "vuex": "^4.0.2"
     }
 }
