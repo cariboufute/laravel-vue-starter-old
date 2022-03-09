@@ -8,8 +8,8 @@ module.exports = {
     ],
 
     transform: {
-        ".*\\.(vue)$": "vue-jest",
-        ".*\\.(js)$": "babel-jest"
+        ".*\\.(js)$": "babel-jest",
+        ".*\\.(vue)$": "@vue/vue3-jest"
     },
 
     moduleNameMapper: {
