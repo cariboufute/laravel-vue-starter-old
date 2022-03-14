@@ -57,10 +57,9 @@
             async submitLogin() {
                 try {
                     await this.login(this.form);
-                    console.log('yeé!');
                     await this.$router.push('/home');
                 } catch (error) {
-                    this.error = error;
+                    this.error = error.response ? error.response.data : error;
                 }
             }
         }
