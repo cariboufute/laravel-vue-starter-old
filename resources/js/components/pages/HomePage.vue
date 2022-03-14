@@ -3,19 +3,20 @@
 
     <p>You need authentication to access this page.</p>
 
-    <button @click="logout">Logout</button>
+    <button @click="logoutAndRedirect">Logout</button>
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
+
     export default {
         methods: {
-            logout() {
-                alert('logout');
+            ...mapActions('Auth', ['logout']),
+
+            async logoutAndRedirect() {
+                await this.logout();
+                await this.$router.push('/');
             }
         }
     };
 </script>
-
-<style lang="scss" scoped>
-
-</style>

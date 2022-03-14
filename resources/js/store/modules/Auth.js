@@ -26,13 +26,14 @@ export default {
     },
 
     actions: {
-        async login({ getters, commit, dispatch }, form) {
+        async login({ commit }, form) {
             try {
                 await AuthApi.sanctumCookie();
                 const response = await AuthApi.login(form);
                 commit('setUser', response.data.user);
             } catch (error) {
                 commit('clearUser');
+                throw error;
             }
         },
 
@@ -42,6 +43,7 @@ export default {
                 commit('setUser', response.data);
             } catch (error) {
                 commit('clearUser');
+                throw error;
             }
         },
 
