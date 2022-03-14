@@ -11,7 +11,11 @@
 |
 */
 
-uses(Tests\TestCase::class)->in('Feature');
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
+
+uses(Tests\TestCase::class, RefreshDatabase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +43,15 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+const CREDENTIALS = [
+    'email' => 'email@email.com',
+    'password' => 'password',
+];
+
+function createAuthUser(): User
 {
-    // ..
+    return User::factory()->create([
+        'email' => CREDENTIALS['email'],
+        'password' => Hash::make(CREDENTIALS['password']),
+    ]);
 }
