@@ -12,7 +12,7 @@ function getHeaders(): array
     $xsrfToken = $sanctumResponse->getCookie('XSRF-TOKEN');
     return [
         'X-XSRF-TOKEN' => $xsrfToken,
-        'Referer' => 'laravel-vue-starter.test'
+        'Referer' => env('APP_URL')
     ];
 }
 
