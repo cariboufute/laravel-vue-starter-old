@@ -2,22 +2,17 @@ import IndexPage from '@/components/pages/IndexPage.vue';
 import HomePage from '@/components/pages/HomePage.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuth } from '@/stores/Auth';
-import { storeToRefs } from 'pinia';
 
-const fetchUserIfNotAuth = async () => {
-    const { isAuth } = storeToRefs(useAuth());
-    const { fetchUser } = useAuth();
+const fetchUserIfNotAuth = async () => useAuth().isAuth ? true : fetchUserAndReturnIsAuth();
 
-    if (isAuth.value) {
-        return true;
-    }
-
+const fetchUserAndReturnIsAuth = async () => {
     try {
-        await fetchUser();
-        return true;
+        await useAuth().fetchUser();
     } catch (e) {
         return false;
     }
+
+    return true;
 };
 
 
