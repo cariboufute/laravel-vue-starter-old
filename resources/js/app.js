@@ -2,11 +2,13 @@ import './bootstrap.js';
 import '../css/app.css';
 
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 import VueApp from '@/components/VueApp.vue';
 import router from './router';
-import store from './store';
+
+const pinia = createPinia();
 
 createApp(VueApp)
-    .use(store)
+    .use(pinia)
     .use(router)
     .mount('#app');
