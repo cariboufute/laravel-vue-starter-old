@@ -6,17 +6,15 @@
     <button @click="logoutAndRedirect">Logout</button>
 </template>
 
-<script>
-    import { mapActions } from 'vuex';
+<script setup>
+    import { useAuth } from '@/stores/Auth';
+    import { useRouter } from 'vue-router';
 
-    export default {
-        methods: {
-            ...mapActions('Auth', ['logout']),
+    const { logout } = useAuth();
+    const router = useRouter();
 
-            async logoutAndRedirect() {
-                await this.logout();
-                await this.$router.push('/');
-            }
-        }
-    };
+    const logoutAndRedirect = async () => {
+        await logout();
+        await router.push('/');
+    }
 </script>
