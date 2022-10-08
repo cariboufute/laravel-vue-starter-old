@@ -1,6 +1,6 @@
 import AuthApi from '@/api-clients/AuthApi';
 import User from '@/models/User';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 
 export const defaultApiErrorMessage = 'Sorry! Problem accessing system right now. Please retry.';
@@ -8,55 +8,49 @@ export const defaultApiErrorMessage = 'Sorry! Problem accessing system right now
 export const useAuth = defineStore('Auth', () => {
     const user = ref(null);
 
+    const isAuth = computed(() => !!user.value);
+
+    const setUser = newUser => user.value = new User(newUser);
+    const clearUser = () => user.value = null;
+
+    const login = async form => {
+        try {
+            await AuthApi.sanctumCookie();
+            const response = await AuthApi.login(form);
+            setUser(response.data.user);
+        } catch (error) {
+            clearUser();
+            throw error;
+        }
+    };
+
+    const fetchUser = async () => {
+        try {
+            const response = await AuthApi.user();
+            setUser(response.data);
+        } catch (error) {
+            clearUser();
+            throw error;
+        }
+    };
+
+    const logout = async () => {
+        try {
+            await AuthApi.logout();
+        } catch (error) {
+        } finally {
+            clearUser();
+        }
+    };
+
     return {
-        user
-    }
+        user,
+        isAuth,
+
+        setUser,
+        clearUser,
+        login,
+        fetchUser,
+        logout,
+    };
 });
-
-export default {
-    getters: {
-        isAuth: state => Boolean(state.user),
-    },
-
-    mutations: {
-        setUser(state, user) {
-            state.user = new User(user);
-        },
-
-        clearUser(state) {
-            state.user = null;
-        }
-    },
-
-    actions: {
-        async login({ commit }, form) {
-            try {
-                await AuthApi.sanctumCookie();
-                const response = await AuthApi.login(form);
-                commit('setUser', response.data.user);
-            } catch (error) {
-                commit('clearUser');
-                throw error;
-            }
-        },
-
-        async fetchUser({ commit }) {
-            try {
-                const response = await AuthApi.user();
-                commit('setUser', response.data);
-            } catch (error) {
-                commit('clearUser');
-                throw error;
-            }
-        },
-
-        async logout({ commit, dispatch }) {
-            try {
-                await AuthApi.logout();
-            } catch (error) {
-            } finally {
-                commit('clearUser');
-            }
-        }
-    }
-};
