@@ -1,23 +1,28 @@
 import IndexPage from '@/components/pages/IndexPage.vue';
 import HomePage from '@/components/pages/HomePage.vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import store from '@/store';
+import { useAuth } from '@/stores/Auth';
 
-const fetchUserIfNotAuth = async () => {
-    if (!store.getters["Auth/isAuth"]) {
-        try {
-            await store.dispatch("Auth/fetchUser");
-        } catch (e) {}
+const fetchUserIfNotAuth = async () => useAuth().isAuth ? true : fetchUserAndReturnIsAuth();
+
+const fetchUserAndReturnIsAuth = async () => {
+    try {
+        await useAuth().fetchUser();
+    } catch (e) {
+        return false;
     }
+
+    return true;
 };
+
 
 const routes = [
     {
         path: '/',
         component: IndexPage,
         beforeEnter: async (to, from, next) => {
-            await fetchUserIfNotAuth();
-            store.getters["Auth/isAuth"] ? next('/home') : next();
+            const isAuth = await fetchUserIfNotAuth();
+            isAuth ? next('/home') : next();
         }
     },
 
@@ -25,8 +30,8 @@ const routes = [
         path: '/home',
         component: HomePage,
         beforeEnter: async (to, from, next) => {
-            await fetchUserIfNotAuth();
-            store.getters["Auth/isAuth"] ? next() : next('/');
+            const isAuth = await fetchUserIfNotAuth();
+            isAuth ? next() : next('/');
         }
     }
 ];

@@ -31,39 +31,32 @@
     </form>
 </template>
 
-<script>
+<script setup>
     import _ from 'lodash';
-    import { mapActions } from 'vuex';
+    import { reactive, ref } from 'vue';
+    import { useAuth } from '@/stores/Auth';
+    import { useRouter } from 'vue-router';
 
-    export default {
-        data() {
-            return {
-                form: {
-                    email: '',
-                    password: '',
-                },
+    const form = reactive({
+        email: '',
+        password: '',
+    });
 
-                error: null,
-            };
-        },
+    const error = ref(null);
 
-        methods: {
-            ...mapActions('Auth', ['login']),
+    const { login } = useAuth();
+    const router = useRouter();
 
-            fieldErrors(field) {
-                return _.get(this.error, 'errors.' + field, []);
-            },
+    const fieldErrors = field => _.get(error.value, 'errors.' + field, []);
 
-            async submitLogin() {
-                try {
-                    await this.login(this.form);
-                    await this.$router.push('/home');
-                } catch (error) {
-                    this.error = error.response ? error.response.data : error;
-                }
-            }
+    const submitLogin = async () => {
+        try {
+            await login(form);
+            await router.push('/home');
+        } catch (error) {
+            error.value = error.response ? error.response.data : error;
         }
-    };
+    }
 </script>
 
 <style lang="scss" scoped>
