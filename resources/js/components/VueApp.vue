@@ -1,9 +1,5 @@
 <template>
     <h1>Vue app</h1>
 
-    <router-view></router-view>
+    <RouterView/>
 </template>
-
-<script>
-    export default {};
-</script>

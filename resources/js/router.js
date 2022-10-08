@@ -1,5 +1,5 @@
-import IndexPage from '@/components/pages/IndexPage';
-import HomePage from '@/components/pages/HomePage';
+import IndexPage from '@/components/pages/IndexPage.vue';
+import HomePage from '@/components/pages/HomePage.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import store from '@/store';
 
