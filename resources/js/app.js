@@ -1,14 +1,14 @@
 import './bootstrap.js';
-import '../css/app.css';
+import '../scss/app.scss';
 
-import { createApp } from 'vue';
+import { createSSRApp } from 'vue';
 import { createPinia } from 'pinia';
 import VueApp from '@/components/VueApp.vue';
 import router from './router';
 
 const pinia = createPinia();
 
-createApp(VueApp)
+export const createApp = () => createSSRApp(VueApp)
     .use(pinia)
     .use(router)
-    .mount('#app');
+
