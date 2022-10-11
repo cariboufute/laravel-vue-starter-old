@@ -6,9 +6,13 @@ import { createPinia } from 'pinia';
 import VueApp from '@/components/VueApp.vue';
 import router from './router';
 
-const pinia = createPinia();
+export const createApp = () => {
+    const pinia = createPinia();
 
-export const createApp = () => createSSRApp(VueApp)
-    .use(pinia)
-    .use(router)
+    const app = createSSRApp(VueApp)
+        .use(pinia)
+        .use(router);
+
+    return { app, router };
+};
 

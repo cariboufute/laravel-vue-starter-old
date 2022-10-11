@@ -1,15 +1,15 @@
 import { createApp } from '@/app';
-import router from './router';
 import { renderToString } from 'vue/server-renderer';
 import express from 'express';
 
 const server = express();
-const app = createApp();
+const { app, router } = createApp();
 
 const routeNotFound = router => router.currentRoute.value.matched.length === 0;
 
 //TODO put language from session
 //TODO put title from .env
+//TODO add assets and CSS
 const makeHtmlPage = html => `
 <html lang="en">
     <head>
@@ -21,7 +21,7 @@ const makeHtmlPage = html => `
     </head>
 
     <body>
-        ${html}
+        ${ html }
     </body>
 </html>
 `;
@@ -37,6 +37,7 @@ const renderApp = async (request, response) => {
 
     const html = await renderToString(app);
     response.send(makeHtmlPage(html));
+    response.end();
 };
 
 server.get('*', (request, response) => renderApp(request, response));
