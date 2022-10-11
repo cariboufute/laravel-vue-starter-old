@@ -6,22 +6,17 @@
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="robots" content="noindex, nofollow">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel Vue Starter') }}</title>
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
         @stack('scripts')
-
-        <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-        <meta name="robots" content="noindex, nofollow">
     </head>
 
     <body>
         <div id="app"></div>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/js/client.js'])
     </body>
 </html>

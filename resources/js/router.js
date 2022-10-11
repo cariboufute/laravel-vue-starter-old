@@ -1,6 +1,6 @@
 import IndexPage from '@/components/pages/IndexPage.vue';
 import HomePage from '@/components/pages/HomePage.vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router';
 import { useAuth } from '@/stores/Auth';
 
 const fetchUserIfNotAuth = async () => useAuth().isAuth ? true : fetchUserAndReturnIsAuth();
@@ -36,8 +36,10 @@ const routes = [
     }
 ];
 
+const history = import.meta.env.SSR ? createMemoryHistory() : createWebHistory();
+
 const router = createRouter({
-    history: createWebHistory(),
+    history,
     routes
 });
 
