@@ -8,7 +8,6 @@ const { app, router } = createApp();
 const routeNotFound = router => router.currentRoute.value.matched.length === 0;
 
 //TODO put language from session
-//TODO put title from .env
 //TODO add assets and CSS
 const makeHtmlPage = html => `
 <html lang="en">
@@ -17,7 +16,7 @@ const makeHtmlPage = html => `
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex, nofollow">
         
-        <title>Laravel Vue Starter</title>
+        <title>${import.meta.env.VITE_APP_NAME}</title>
     </head>
 
     <body>
