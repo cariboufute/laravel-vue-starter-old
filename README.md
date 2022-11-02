@@ -4,15 +4,16 @@ This is a starter app for Laravel 9 and Vue.js 3, with the following installed f
 
 * Laravel 9
 * Vue.js 3
-* Vuex (store)
+* Pinia (stores)
 * Vue router
 * Laravel Sanctum
 * Basic authentication coding for SPA authentication
 * Pest PHP testing
 * Vue test utils with Jest for JS/Vue testing
-* Asset compiling with Laravel Mix
+* Asset compiling with Vite
 
 Have fun!
 
-Frédéric Chiasson
+Frédéric Chiasson  
+[Caribou Futé Solutions inc.](https://cariboufute.com)
 
