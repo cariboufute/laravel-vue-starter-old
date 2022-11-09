@@ -67,7 +67,7 @@ describe('Auth module', () => {
             await store.fetchUser();
         } catch (error) {}
 
-        expect(axios.get).toBeCalledWith('/api/user');
+        expect(axios.get).toBeCalledWith('/api/user/auth');
         expect(store.user).toBeNull();
     });
 
@@ -76,7 +76,7 @@ describe('Auth module', () => {
 
         await store.fetchUser();
 
-        expect(axios.get).toBeCalledWith('/api/user');
+        expect(axios.get).toBeCalledWith('/api/user/auth');
         expect(store.user).toBeInstanceOf(User);
         expect(store.user.email).toStrictEqual(user.email);
     });

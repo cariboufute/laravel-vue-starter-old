@@ -10,7 +10,7 @@ export default {
     },
 
     async user() {
-        return await axios.get('/api/user');
+        return await axios.get('/api/user/auth');
     },
 
     async logout() {

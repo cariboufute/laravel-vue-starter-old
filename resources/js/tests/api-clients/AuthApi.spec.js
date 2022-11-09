@@ -22,7 +22,7 @@ describe('AuthApi', () => {
     test('user', async () => {
         await AuthApi.user();
 
-        expect(axios.get).toBeCalledWith('/api/user');
+        expect(axios.get).toBeCalledWith('/api/user/auth');
     });
 
     test('logout', async () => {
