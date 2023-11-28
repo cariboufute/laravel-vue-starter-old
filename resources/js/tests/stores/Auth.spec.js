@@ -3,8 +3,16 @@ import axios from 'axios';
 import User from '@/models/User';
 import { useAuth } from '@/stores/Auth';
 import { createPinia, setActivePinia } from 'pinia';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-jest.mock('axios');
+vi.mock('axios', () => {
+    return {
+        default: {
+            get: vi.fn(),
+            post: vi.fn()
+        }
+    };
+});
 
 describe('Auth module', () => {
     const user = new User({
@@ -14,7 +22,7 @@ describe('Auth module', () => {
     let store;
 
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
         setActivePinia(createPinia());
 
         store = useAuth();
