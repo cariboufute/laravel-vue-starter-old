@@ -1,15 +1,26 @@
 import axios from 'axios';
 import AuthApi from '@/api-clients/AuthApi';
+import { vi, describe, beforeEach, test, expect } from 'vitest';
 
-jest.mock('axios');
+vi.mock('axios', () => {
+    return {
+        default: {
+            get: vi.fn(),
+            post: vi.fn()
+        }
+    };
+});
 
 describe('AuthApi', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+
     test('sanctumCookie', async () => {
         await AuthApi.sanctumCookie();
 
         expect(axios.get).toBeCalledWith('/sanctum/csrf-cookie');
     });
-
 
     test('login', async () => {
         const payload = { page: 2 };
