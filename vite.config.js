@@ -3,6 +3,14 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
+    css: {
+        preprocessorOptions: {
+            scss: {
+                api: 'modern-compiler'
+            }
+        }
+    },
+
     plugins: [
         laravel({
             input: 'resources/js/client.js',
@@ -16,7 +24,7 @@ export default defineConfig({
                     includeAbsolute: false,
                 },
             },
-        })
+        }),
     ],
 
     resolve: {
